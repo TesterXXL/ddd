@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moyenne Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .subject {
+            margin-bottom: 10px;
+        }
+        label {
+            display: inline-block;
+            width: 150px;
+        }
+        input[type="number"] {
+            width: 50px;
+            text-align: right;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Moyenne Calculator</h1>
+    <div id="subjects">
+        <div class="subject">
+            <label for="analyse">Moyenne de Analyse:</label>
+            <input type="number" id="analyse" value="0" min="0" max="20" step="0.1">
+        </div>
+        <div class="subject">
+            <label for="algebre">Moyenne de Algèbre:</label>
+            <input type="number" id="algebre" value="0" min="0" max="20" step="0.1">
+        </div>
+        <div class="subject">
+            <label for="physic">Moyenne de Physic:</label>
+            <input type="number" id="physic" value="0" min="0" max="20" step="0.1">
+        </div>
+        <div class="subject">
+            <label for="francais">Moyenne de Français:</label>
+            <input type="number" id="francais" value="0" min="0" max="20" step="0.1">
+        </div>
+        <div class="subject">
+            <label for="anglais">Moyenne de Anglais:</label>
+            <input type="number" id="anglais" value="0" min="0" max="20" step="0.1">
+        </div>
+        <div class="subject">
+            <label for="sti_sta">Moyenne de STI/STA:</label>
+            <input type="number" id="sti_sta" value="0" min="0" max="20" step="0.1">
+        </div>
+        <div class="subject">
+            <label for="chimie">Moyenne de Chimie:</label>
+            <input type="number" id="chimie" value="0" min="0" max="20" step="0.1">
+        </div>
+        <div class="subject">
+            <label for="informatique">Moyenne de Informatique:</label>
+            <input type="number" id="informatique" value="0" min="0" max="20" step="0.1">
+        </div>
+    </div>
+    <div id="result">Moyenne: 0</div>
+
+    <script>
+        const coefficients = {
+            analyse: 8,
+            algebre: 6,
+            physic: 6,
+            francais: 3,
+            anglais: 3,
+            sti_sta: 4,
+            chimie: 4,
+            informatique: 4
+        };
+
+        const totalCoefficient = Object.values(coefficients).reduce((a, b) => a + b, 0);
+
+        const inputs = document.querySelectorAll('#subjects input');
+        const resultDiv = document.getElementById('result');
+
+        function calculateMoyenne() {
+            let sum = 0;
+
+            inputs.forEach(input => {
+                const id = input.id;
+                const value = parseFloat(input.value) || 0;
+                sum += value * coefficients[id];
+            });
+
+            const moyenne = sum / totalCoefficient;
+            resultDiv.textContent = `Moyenne: ${moyenne.toFixed(2)}`;
+        }
+
+        inputs.forEach(input => {
+            input.addEventListener('input', calculateMoyenne);
+        });
+
+        calculateMoyenne();
+    </script>
+</body>
+</html>
